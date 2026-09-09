@@ -27,7 +27,7 @@ struct ViewStateView<Content: View, Data: Equatable>: View {
         case let .data(data):
             content(data)
 
-        case .loading:
+        case .loading, .empty:
             loadingView
 
         case let .error(message):
@@ -41,15 +41,19 @@ struct ViewStateView<Content: View, Data: Equatable>: View {
     private var loadingView: some View {
         VStack {
             Text("Loading...")
-                .font(.title)
+                .font(.title3)
             ProgressView()
-                .progressViewStyle(.circular)
+                .progressViewStyle(.automatic)
         }
     }
 
     private func errorView(message: String, reloadAction: (() -> Void)? = nil) -> some View {
         VStack {
             Image(systemName: "exclamationmark.triangle")
+                .renderingMode(.original)
+                .resizable()
+                .frame(width: 90, height: 80)
+                .tint(.yellow)
                 .padding()
             Text("Error!")
                 .font(.title)
@@ -61,10 +65,20 @@ struct ViewStateView<Content: View, Data: Equatable>: View {
                 reloadAction?()
             } label: {
                 Text("Try again")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 12)
                     .tint(Color.black)
-                    .clipShape(Capsule())
                     .background(Color.blue)
+                    .clipShape(Capsule())
             }
         }
     }
 }
+
+#Preview {
+    let state: ViewState<Brewery> = .error(message: "Generic error test")
+    ViewStateView(state: state, reloadActrion: nil) { _ in }
+}
+

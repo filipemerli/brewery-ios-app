@@ -10,12 +10,21 @@ import Foundation
 internal struct BreweryDTO: Decodable {
     let id: String
     let name: String
-    let brewery_type: String?
-    let address_1: String?
+    let breweryType: String?
+    let address: String?
     let city: String?
-    let postal_code: String?
+    let postalCode: String?
     let country: String?
     let phone: String?
-    let state: String?
-    let street: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case breweryType = "brewery_type"
+        case address = "address_1"
+        case city
+        case postalCode = "postal_code"
+        case country
+        case phone
+    }
 }

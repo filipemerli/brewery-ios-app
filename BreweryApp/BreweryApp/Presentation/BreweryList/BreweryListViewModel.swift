@@ -18,13 +18,13 @@ final class BreweryListViewModel: ObservableObject {
 
     // MARK: - Properties
 
-    @Published private(set) var state: ViewState<BreweryListViewData> = .loading
-    
+    @Published private(set) var state: ViewState<BreweryListViewData> = .empty
+
 
     // MARK: - Dependencies (Injected following DIP)
     private let repository: BreweryRepository
     private let perPage = 10
-    private let pageLimit = 10
+    private let pageLimit = 25
 
     // MARK: Initializer
     init(repository: BreweryRepository) {
@@ -36,19 +36,21 @@ final class BreweryListViewModel: ObservableObject {
     func send(_ action: Action) {
         switch action {
         case .onAppear, .retry:
-            fetchBreweryList(page: 1)
+            guard case .empty = state else { return }
+            fetchBreweryList(page: 1, existing: [])
         case let .loadNextPage(brewery):
             loadNextPageIfNeeded(currentItem: brewery)
         }
     }
 
     // MARK: Private
-    private func fetchBreweryList(page: Int) {
+    private func fetchBreweryList(page: Int, existing: [Brewery]) {
         Task {
             do {
-                let result = try await repository.fetchBreweries(page: page, perPage: perPage)
-                guard result.count > 0 else { return }
-                state = .data(updateViewData(for: result))
+                let newItems = try await repository.fetchBreweries(page: page, perPage: perPage)
+                guard newItems.count > 0 else { return }
+                let mergedItems = existing + newItems
+                state = .data(updateViewData(for: mergedItems, page: page))
             } catch let error as DomainError {
                 state = .error(message: error.localizedDescription)
             } catch {
@@ -65,10 +67,15 @@ final class BreweryListViewModel: ObservableObject {
 
         data.isLoadingNextPage = true
         state = .data(data)
-        fetchBreweryList(page: data.currentPage + 1)
+        fetchBreweryList(page: data.currentPage + 1, existing: data.breweries)
     }
 
-    private func updateViewData(for data: [Brewery]) -> BreweryListViewData {
-        BreweryListViewData(breweries: data, currentPage: 1, isLoadingNextPage: false, hasMorePages: false)
+    private func updateViewData(for data: [Brewery], page: Int) -> BreweryListViewData {
+        BreweryListViewData(
+            breweries: data,
+            currentPage: page,
+            isLoadingNextPage: false,
+            hasMorePages: page < pageLimit
+        )
     }
 }
