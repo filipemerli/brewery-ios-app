@@ -12,7 +12,7 @@ final class BreweryRepositoryImpl: BreweryRepository {
     private let networkService: NetworkServiceProtocol
     private let mapper: BreweryMapper
 
-    init(networkService: NetworkService, mapper: BreweryMapper = BreweryMapper()) {
+    init(networkService: NetworkServiceProtocol, mapper: BreweryMapper = BreweryMapper()) {
         self.networkService = networkService
         self.mapper = mapper
     }

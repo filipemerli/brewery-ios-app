@@ -1,0 +1,43 @@
+[
+    {
+        "id": "9b732794-2a95-48ec-80b2-c01ef485d97a",
+        "name": "Haines Brewing Co",
+        "brewery_type": "micro",
+        "address_1": "327 Main St",
+        "address_2": null,
+        "address_3": null,
+        "city": "Haines",
+        "state_province": "Alaska",
+        "postal_code": "99827",
+        "country": "United States",
+        "longitude": -135.4551927,
+        "latitude": 59.2357624,
+        "phone": "9077663823",
+        "website_url": "http://www.hainesbrewing.com",
+        "state": "Alaska",
+        "street": "327 Main St"
+    },
+    {
+        "id": "6260eac2-6949-4c19-aec9-739c2cdcf849",
+        "name": "State 48 Brewery",
+        "brewery_type": "planning"
+    },
+    {
+        "id": "6260eac2-6949-4c19-aec9-739c2cdcf849",
+        "name": "State 48 Brewery",
+        "brewery_type": "planning",
+        "address_1": null,
+        "address_2": null,
+        "address_3": null,
+        "city": "Phoenix",
+        "state_province": "Arizona",
+        "postal_code": "85003-1626",
+        "country": "United States",
+        "longitude": -112.0773456,
+        "latitude": 33.4485866,
+        "phone": null,
+        "website_url": null,
+        "state": "Arizona",
+        "street": null
+    }
+]

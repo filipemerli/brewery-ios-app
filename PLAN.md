@@ -54,7 +54,7 @@ Clean layers, dependency pointing inward:
 1. **Domain + Data** — models, repository protocol, DTOs, API client,
    mapper, error mapping.
 2. **Presentation** — list + detail views, ViewModels, loading/empty/
-   error/retry states, filter wiring.
+   error/retry states.
 3. **Tests** — repository (mocked network), ViewModels (mock repository,
    state transitions, retry behavior).
 4. **Polish + submission** — README, this plan finalized, AI usage
