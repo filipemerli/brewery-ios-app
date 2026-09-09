@@ -64,12 +64,6 @@ final class NetworkService: NetworkServiceProtocol {
             throw NetworkError.httpError(httpResponse.statusCode)
         }
 
-#if DEBUG
-        if let JSONString = String(data: data, encoding: String.Encoding.utf8) {
-            print(JSONString)
-        }
-#endif
-
         do {
             return try decoder.decode(T.self, from: data)
         } catch {
