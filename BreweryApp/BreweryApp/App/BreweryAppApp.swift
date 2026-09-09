@@ -31,7 +31,6 @@ final class Container {
     }
 
     private func resolveDataLayer() {
-        guard let service = service as? NetworkService else { fatalError() }
         repository = BreweryRepositoryImpl(networkService: service)
     }
 
