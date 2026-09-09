@@ -8,31 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    let networkService: NetworkServiceProtocol = NetworkService()
+    let networkService = NetworkService()
+    let repository: BreweryRepository = BreweryRepositoryImpl(networkService: .init())
+    @State var breweriesList: [Brewery] = []
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        LazyVStack {
+            ForEach(breweriesList, id: \.id) { brewery in
+                HStack(spacing: 22) {
+                    Text("Name: \(brewery.name)")
+                }
+            }
         }
         .padding()
         .onAppear {
-            print("Alive")
             Task {
                 do {
-                    let domainData: [Dummy] = try await networkService.request(.list(page: 1, perPage: 15))
-                    print(domainData)
+                    let dataModel: [Brewery] = try await repository.fetchBreweries(page: 1, perPage: 5)
+                    breweriesList = dataModel
                 } catch let error {
                     print(error)
                 }
             }
         }
-    }
-
-    struct Dummy: Decodable {
-        let id: String
-        let name: String
     }
 }
 
