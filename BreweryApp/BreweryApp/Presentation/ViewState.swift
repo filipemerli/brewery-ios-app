@@ -11,4 +11,5 @@ enum ViewState<T: Equatable>: Equatable {
     case data(T)
     case loading
     case error(message: String?)
+    case empty
 }
