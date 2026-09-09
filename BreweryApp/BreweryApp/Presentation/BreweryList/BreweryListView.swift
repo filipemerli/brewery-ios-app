@@ -17,15 +17,17 @@ struct BreweryListView<ViewModel: BreweryListViewModel>: View {
     }
 
     var body: some View {
-        content
+        ViewStateView(
+            state: viewModel.state,
+            reloadActrion: { viewModel.send(.retry) }
+        ) { data in
+            List(data.breweries, id: \.id) { brewery in
+                Text("Name: \(brewery.name)")
+            }
             .navigationTitle("Brewery List")
-    }
-
-    // MARK: Components
-
-    private var content: some View {
-        List(viewModel.breweries, id: \.id) { brewery in
-            Text("Name: \(brewery.name)")
+        }
+        .onAppear {
+            viewModel.send(.onAppear)
         }
     }
 }
