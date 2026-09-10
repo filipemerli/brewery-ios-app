@@ -23,37 +23,31 @@ struct BreweryDetailView<ViewModel: BreweryDetailViewModel>: View {
         ) { data in
             VStack(alignment: .leading, spacing: 12) {
                 Text("Name: \(data.name)")
-                    .font(.title3)
-                    .fontWeight(.semibold)
+                    .font(FontTokens.detailsRow)
                 if let typeText = data.breweryType {
                     Divider()
                     Text("Type: \(typeText)")
-                        .font(.title3)
-                        .fontWeight(.semibold)
+                        .font(FontTokens.detailsRow)
                 }
                 if let cityText = data.city {
                     Divider()
                     Text("City: \(cityText)")
-                        .font(.title3)
-                        .fontWeight(.semibold)
+                        .font(FontTokens.detailsRow)
                 }
                 if let addressText = data.address {
                     Divider()
                     Text("Address: \(addressText)")
-                        .font(.title3)
-                        .fontWeight(.semibold)
+                        .font(FontTokens.detailsRow)
                 }
                 if let postalCodeText = data.postalCode {
                     Divider()
                     Text("Postal Code: \(postalCodeText)")
-                        .font(.title3)
-                        .fontWeight(.semibold)
+                        .font(FontTokens.detailsRow)
                 }
                 if let phoneText = data.phone {
                     Divider()
                     Text("Phone: \(phoneText)")
-                        .font(.title3)
-                        .fontWeight(.semibold)
+                        .font(FontTokens.detailsRow)
                 }
                 Spacer()
             }

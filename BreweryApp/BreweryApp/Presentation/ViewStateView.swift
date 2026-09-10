@@ -27,7 +27,7 @@ struct ViewStateView<Content: View, Data: Equatable>: View {
         case let .data(data):
             content(data)
 
-        case .loading, .empty:
+        case .loading:
             loadingView
 
         case let .error(message):

@@ -5,8 +5,6 @@
 //  Created by Filipe Merli on 09/09/2026.
 //
 
-import Foundation
-
 struct Brewery: Equatable, Hashable {
     let id: String
     let name: String

@@ -17,27 +17,3 @@ struct BreweryAppApp: App {
         }
     }
 }
-
-final class Container {
-
-    // MARK: Domain
-    let service: NetworkServiceProtocol
-
-    var repository: BreweryRepository?
-
-    init() {
-        self.service = NetworkService()
-        resolveDataLayer()
-    }
-
-    private func resolveDataLayer() {
-        repository = BreweryRepositoryImpl(networkService: service)
-    }
-
-
-    func buildBreweryListView() -> BreweryListView<BreweryListViewModel> {
-        guard let repository else { fatalError() }
-        let viewModel = BreweryListViewModel(repository: repository)
-        return BreweryListView(viewModel: viewModel)
-    }
-}

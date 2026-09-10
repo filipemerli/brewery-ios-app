@@ -15,6 +15,9 @@ final class NetworkService: NetworkServiceProtocol {
 
     private let session: URLSession
     private let decoder: JSONDecoder
+#if DEBUG
+    private var counter: Int = 0
+#endif
 
     private let requestTimeout: TimeInterval = 10
 
@@ -65,7 +68,16 @@ final class NetworkService: NetworkServiceProtocol {
         }
 
         do {
+#if DEBUG
+            if counter == 0 {
+                counter += 1
+                throw NetworkError.decodingFailed(DomainError.decodingFailed)
+            } else {
+                return try decoder.decode(T.self, from: data)
+            }
+#else
             return try decoder.decode(T.self, from: data)
+#endif
         } catch {
             throw NetworkError.decodingFailed(error)
         }

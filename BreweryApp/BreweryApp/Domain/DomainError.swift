@@ -4,25 +4,21 @@
 //
 //  Created by Filipe Merli on 09/09/2026.
 //
-
 import Foundation
 
-enum DomainError: Error {
+enum DomainError: Error, LocalizedError {
     case networkUnavailable
     case notFound
     case decodingFailed
     case unknown
 
-    init(from networkError: NetworkError) {
-        switch networkError {
-        case .invalidResponse, .invalidURL:
-            self = .unknown
-        case .httpError(let code) where code == 404:
-            self = .notFound
-        case .httpError:
-            self = .networkUnavailable
-        case .decodingFailed:
-            self = .decodingFailed
+    var errorDescription: String? {
+        switch self {
+        case .networkUnavailable: return "Please check your network connection."
+        case .notFound: return "No data found."
+        case .decodingFailed: return "Internal error!"
+        case .unknown: return "Something went wrong"
         }
     }
 }
+
