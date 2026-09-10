@@ -32,11 +32,6 @@
 			path = BreweryAppTests;
 			sourceTree = "<group>";
 		};
-		A7762ACB305072540029FF96 /* BreweryAppUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BreweryAppUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +57,6 @@
 			children = (
 				A7762AB3305072520029FF96 /* BreweryApp */,
 				A7762AC1305072540029FF96 /* BreweryAppTests */,
-				A7762ACB305072540029FF96 /* BreweryAppUITests */,
 				A7762AB2305072520029FF96 /* Products */,
 			);
 			sourceTree = "<group>";

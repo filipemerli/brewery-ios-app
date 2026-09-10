@@ -18,7 +18,7 @@ final class BreweryListViewModel: ObservableObject {
 
     // MARK: - Properties
 
-    @Published private(set) var state: ViewState<BreweryListViewData> = .empty
+    @Published private(set) var state: ViewState<BreweryListViewData> = .loading
 
 
     // MARK: - Dependencies (Injected following DIP)
@@ -35,9 +35,15 @@ final class BreweryListViewModel: ObservableObject {
 
     func send(_ action: Action) {
         switch action {
-        case .onAppear, .retry:
-            guard case .empty = state else { return }
+        case .onAppear:
+            guard case .loading = state else { return }
             fetchBreweryList(page: 1, existing: [])
+
+        case .retry:
+            guard case .error(_) = state else { return }
+            state = .loading
+            fetchBreweryList(page: 1, existing: [])
+
         case let .loadNextPage(brewery):
             loadNextPageIfNeeded(currentItem: brewery)
         }
