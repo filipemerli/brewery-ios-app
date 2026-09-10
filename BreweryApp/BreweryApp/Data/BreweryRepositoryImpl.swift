@@ -33,9 +33,18 @@ final class BreweryRepositoryImpl: BreweryRepository {
         do {
             let dtos: [BreweryDTO] = try await networkService.request(endpoint)
 
-            return try dtos.compactMap(mapper.map)
+            return try dtos.map(mapper.map)
         } catch let error as NetworkError {
-            throw DomainError(from: error)
+            switch error {
+            case .invalidResponse, .invalidURL:
+                throw DomainError.unknown
+            case .httpError(let code) where code == 404:
+                throw DomainError.notFound
+            case .httpError:
+                throw DomainError.networkUnavailable
+            case .decodingFailed:
+                throw DomainError.decodingFailed
+            }
         }
     }
 
@@ -46,7 +55,16 @@ final class BreweryRepositoryImpl: BreweryRepository {
 
             return try mapper.map(dto)
         } catch let error as NetworkError {
-            throw DomainError(from: error)
+            switch error {
+            case .invalidResponse, .invalidURL:
+                throw DomainError.unknown
+            case .httpError(let code) where code == 404:
+                throw DomainError.notFound
+            case .httpError:
+                throw DomainError.networkUnavailable
+            case .decodingFailed:
+                throw DomainError.decodingFailed
+            }
         }
     }
 }

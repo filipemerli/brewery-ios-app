@@ -2,8 +2,13 @@
 
 ## Goal
 A two-screen SwiftUI app (list + detail) against OpenBreweryDB, with a
-retry-able error state and a server-side filter — scoped deliberately to
-match the size of the challenge, not the size of a production app.
+retry-able error state — scoped deliberately to match the size of the
+challenge, not the size of a production app.
+
+**Scope change (Milestone 4):** the server-side filter originally planned
+below was cut from scope. Pagination, retry-able errors, and the two
+screens were prioritized as the core deliverable within the challenge's
+time box.
 
 ## Architecture
 Clean layers, dependency pointing inward:
@@ -26,7 +31,6 @@ Clean layers, dependency pointing inward:
         DependencyContainer.swift
       Domain/
         Brewery.swift
-        BreweryFilter.swift
         BreweryRepository.swift
         DomainError.swift
       Data/

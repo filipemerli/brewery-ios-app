@@ -40,14 +40,12 @@ struct BreweryListView<ViewModel: BreweryListViewModel>: View {
     private func breweryRow(brewery: Brewery) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Text("\(brewery.name)")
-                .font(.title2.bold())
+                .font(FontTokens.listRowTitle)
             HStack(spacing: 16) {
                 Text("Type: \(brewery.breweryType ?? "")")
-                    .font(.callout)
-                    .fontWeight(.semibold)
+                    .font(FontTokens.listRowDetails)
                 Text("City: \(brewery.city ?? "")")
-                    .font(.callout)
-                    .fontWeight(.semibold)
+                    .font(FontTokens.listRowDetails)
             }
         }
     }
